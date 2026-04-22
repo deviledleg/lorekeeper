@@ -65,9 +65,6 @@ Route::group(['prefix' => 'inventory', 'namespace' => 'Users'], function () {
     Route::get('selector', 'InventoryController@getSelector');
 });
 
-<<<<<<< HEAD
-Route::group(['prefix' => 'characters', 'namespace' => 'Users'], function () {
-=======
 Route::group(['prefix' => __('awards.awardcase'), 'namespace' => 'Users'], function() {
     Route::get('/', 'AwardCaseController@getIndex');
     Route::post('edit', 'AwardCaseController@postEdit');
@@ -77,7 +74,6 @@ Route::group(['prefix' => __('awards.awardcase'), 'namespace' => 'Users'], funct
 });
 
 Route::group(['prefix' => 'characters', 'namespace' => 'Users'], function() {
->>>>>>> 4ce3c4c70745c5449056cb191692917ca9946c3f
     Route::get('/', 'CharacterController@getIndex');
     Route::post('sort', 'CharacterController@postSortCharacters');
 

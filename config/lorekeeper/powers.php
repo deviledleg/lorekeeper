@@ -67,8 +67,6 @@ return [
         'name'        => 'Comment on Sales',
         'description' => 'Allow rank to comment on sales in preview mode.',
     ],
-<<<<<<< HEAD
-=======
     'manage_reports' => [
         'name' => 'Manage Reports',
         'description' => 'Allow rank to view the reports queue.'
@@ -76,5 +74,4 @@ return [
 
 
 
->>>>>>> 4ce3c4c70745c5449056cb191692917ca9946c3f
 ];

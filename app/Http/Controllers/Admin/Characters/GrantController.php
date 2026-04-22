@@ -7,12 +7,9 @@ use App\Models\Character\Character;
 use App\Models\Currency\Currency;
 use App\Services\CurrencyManager;
 use App\Services\InventoryManager;
-<<<<<<< HEAD
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-=======
 use App\Services\AwardCaseManager;
->>>>>>> 4ce3c4c70745c5449056cb191692917ca9946c3f
 
 class GrantController extends Controller {
     /**

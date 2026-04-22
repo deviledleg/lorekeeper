@@ -1997,12 +1997,10 @@ class CharacterManager extends Service {
                 $this->handleImage($data['thumbnail'], $image->imageDirectory, $image->thumbnailFileName, null, isset($data['default_image']));
             }
 
-<<<<<<< HEAD
             // Process and save the image itself
             if (!$isMyo) {
                 $this->processImage($image);
             }
-=======
         try {
             if(!($request->character->is_myo_slot && $request->character->image->species_id) && !isset($data['species_id'])) throw new \Exception("Please select a ".__('lorekeeper.species').".");
             if(!($request->character->is_myo_slot && $request->character->image->rarity_id) && !isset($data['rarity_id'])) throw new \Exception("Please select a rarity.");
@@ -2018,7 +2016,6 @@ class CharacterManager extends Service {
 
             // Clear old features
             $request->features()->delete();
->>>>>>> 4ce3c4c70745c5449056cb191692917ca9946c3f
 
             // Attach features
             foreach ($data['feature_id'] as $key => $featureId) {

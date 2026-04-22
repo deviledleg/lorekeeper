@@ -12,15 +12,6 @@ use App\Models\Gallery\GalleryCharacter;
 use App\Models\Gallery\GallerySubmission;
 use App\Models\Item\Item;
 use App\Models\Item\ItemCategory;
-<<<<<<< HEAD
-use App\Models\User\User;
-use App\Models\User\UserCurrency;
-use App\Models\User\UserUpdateLog;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\View;
-use Route;
-=======
 use App\Models\Item\ItemLog;
 
 use App\Models\User\UserAward;
@@ -29,8 +20,6 @@ use App\Models\Award\AwardCategory;
 use App\Models\Award\AwardLog;
 
 use App\Models\Gallery\GalleryFavorite;
-use App\Models\Gallery\GalleryCharacter;
->>>>>>> 4ce3c4c70745c5449056cb191692917ca9946c3f
 
 class UserController extends Controller {
     /*
@@ -72,21 +61,6 @@ class UserController extends Controller {
      */
     public function getUser($name) {
         $characters = $this->user->characters();
-<<<<<<< HEAD
-        if (!Auth::check() || !(Auth::check() && Auth::user()->hasPower('manage_characters'))) {
-            $characters->visible();
-        }
-
-        $aliases = $this->user->aliases();
-        if (!Auth::check() || !(Auth::check() && Auth::user()->hasPower('edit_user_info'))) {
-            $aliases->visible();
-        }
-
-        return view('user.profile', [
-            'user'       => $this->user,
-            'name'       => $name,
-            'items'      => $this->user->items()->where('count', '>', 0)->orderBy('user_items.updated_at', 'DESC')->take(4)->get(),
-=======
         if(!Auth::check() || !(Auth::check() && Auth::user()->hasPower('manage_characters'))) $characters->visible();
 
         return view('user.profile', [
@@ -94,7 +68,6 @@ class UserController extends Controller {
             'items' => $this->user->items()->where('count', '>', 0)->orderBy('user_items.updated_at', 'DESC')->take(4)->get(),
             'awards' => $this->user->awards()->orderBy('user_awards.updated_at', 'DESC')->whereNull('deleted_at')->where('count','>',0)->take(4)->get(),
             'sublists' => Sublist::orderBy('sort', 'DESC')->get(),
->>>>>>> 4ce3c4c70745c5449056cb191692917ca9946c3f
             'characters' => $characters,
             'aliases'    => $aliases->orderBy('is_primary_alias', 'DESC')->orderBy('site')->get(),
         ]);
@@ -109,13 +82,7 @@ class UserController extends Controller {
      */
     public function getUserAliases($name) {
         $aliases = $this->user->aliases();
-<<<<<<< HEAD
-        if (!Auth::check() || !(Auth::check() && Auth::user()->hasPower('edit_user_info'))) {
-            $aliases->visible();
-        }
-=======
         if(!Auth::check() || !(Auth::check() && Auth::user()->hasPower('edit_user_info'))) $aliases->visible();
->>>>>>> 4ce3c4c70745c5449056cb191692917ca9946c3f
 
         return view('user.aliases', [
             'user'    => $this->user,

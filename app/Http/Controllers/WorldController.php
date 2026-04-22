@@ -2,8 +2,6 @@
 
 namespace App\Http\Controllers;
 
-<<<<<<< HEAD
-=======
 use Illuminate\Http\Request;
 use Config;
 use Auth;
@@ -18,25 +16,11 @@ use App\Models\Award\AwardCategory;
 use App\Models\Award\Award;
 use App\Models\Feature\FeatureCategory;
 use App\Models\Feature\Feature;
->>>>>>> 4ce3c4c70745c5449056cb191692917ca9946c3f
 use App\Models\Character\CharacterCategory;
-use App\Models\Currency\Currency;
-use App\Models\Feature\Feature;
-use App\Models\Feature\FeatureCategory;
-use App\Models\Item\Item;
-use App\Models\Item\ItemCategory;
-use App\Models\Rarity;
 use App\Models\Shop\Shop;
 use App\Models\Shop\ShopStock;
-use App\Models\Species\Species;
-use App\Models\Species\Subtype;
 use App\Models\User\User;
-<<<<<<< HEAD
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
-=======
 use App\Models\User\UserAward;
->>>>>>> 4ce3c4c70745c5449056cb191692917ca9946c3f
 
 class WorldController extends Controller {
     /*
@@ -249,18 +233,10 @@ class WorldController extends Controller {
         }
 
         return view('world.features', [
-<<<<<<< HEAD
-            'features'   => $query->orderBy('id')->paginate(20)->appends($request->query()),
-            'rarities'   => ['none' => 'Any Rarity'] + Rarity::orderBy('sort', 'DESC')->pluck('name', 'id')->toArray(),
-            'specieses'  => ['none' => 'Any Species'] + ['withoutOption' => 'Without Species'] + Species::visible(Auth::check() ? Auth::user() : null)->orderBy('sort', 'DESC')->pluck('name', 'id')->toArray(),
-            'subtypes'   => ['none' => 'Any Subtype'] + ['withoutOption' => 'Without Subtype'] + Subtype::visible(Auth::check() ? Auth::user() : null)->orderBy('sort', 'DESC')->pluck('name', 'id')->toArray(),
-            'categories' => ['none' => 'Any Category'] + ['withoutOption' => 'Without Category'] + FeatureCategory::visible(Auth::check() ? Auth::user() : null)->orderBy('sort', 'DESC')->pluck('name', 'id')->toArray(),
-=======
             'features' => $query->paginate(20)->appends($request->query()),
             'rarities' => ['none' => 'Any Rarity'] + Rarity::orderBy('sort', 'DESC')->pluck('name', 'id')->toArray(),
             'specieses' => ['none' => 'Any '.ucfirst(__('lorekeeper.species'))] + Species::orderBy('sort', 'DESC')->pluck('name', 'id')->toArray(),
             'categories' => ['none' => 'Any Category'] + FeatureCategory::orderBy('sort', 'DESC')->pluck('name', 'id')->toArray()
->>>>>>> 4ce3c4c70745c5449056cb191692917ca9946c3f
         ]);
     }
 

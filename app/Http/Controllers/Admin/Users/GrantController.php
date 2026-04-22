@@ -2,9 +2,6 @@
 
 namespace App\Http\Controllers\Admin\Users;
 
-<<<<<<< HEAD
-use App\Http\Controllers\Controller;
-=======
 use Auth;
 use Config;
 use Illuminate\Http\Request;
@@ -20,24 +17,10 @@ use App\Models\Trade;
 use App\Models\Character\CharacterDesignUpdate;
 use App\Models\Submission\Submission;
 
->>>>>>> 4ce3c4c70745c5449056cb191692917ca9946c3f
 use App\Models\Character\Character;
-use App\Models\Character\CharacterDesignUpdate;
-use App\Models\Character\CharacterItem;
-use App\Models\Currency\Currency;
-use App\Models\Item\Item;
-use App\Models\Submission\Submission;
-use App\Models\Trade;
-use App\Models\User\User;
-use App\Models\User\UserItem;
 use App\Services\CurrencyManager;
 use App\Services\InventoryManager;
-<<<<<<< HEAD
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
-=======
 use App\Services\AwardCaseManager;
->>>>>>> 4ce3c4c70745c5449056cb191692917ca9946c3f
 
 class GrantController extends Controller {
     /**

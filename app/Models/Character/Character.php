@@ -8,14 +8,11 @@ use App\Models\Currency\CurrencyLog;
 use App\Models\Gallery\GalleryCharacter;
 use App\Models\Item\Item;
 use App\Models\Item\ItemLog;
-<<<<<<< HEAD
 use App\Models\Model;
 use App\Models\Rarity;
-=======
 use App\Models\Award\Award;
 use App\Models\Award\AwardLog;
 
->>>>>>> 4ce3c4c70745c5449056cb191692917ca9946c3f
 use App\Models\Submission\Submission;
 use App\Models\Submission\SubmissionCharacter;
 use App\Models\Trade;

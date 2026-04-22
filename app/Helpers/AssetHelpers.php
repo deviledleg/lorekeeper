@@ -70,19 +70,10 @@ function calculateGroupCurrency($data) {
  *
  * @return array
  */
-<<<<<<< HEAD
-function getAssetKeys($isCharacter = false) {
-    if (!$isCharacter) {
-        return ['items', 'currencies', 'raffle_tickets', 'loot_tables', 'user_items', 'characters'];
-    } else {
-        return ['currencies', 'items', 'character_items', 'loot_tables'];
-    }
-=======
 function getAssetKeys($isCharacter = false)
 {
     if(!$isCharacter) return ['items', 'awards', 'currencies', 'raffle_tickets', 'loot_tables', 'user_items', 'user_awards', 'characters'];
     else return ['currencies', 'items', 'character_items', 'loot_tables', 'awards'];
->>>>>>> 4ce3c4c70745c5449056cb191692917ca9946c3f
 }
 
 /**
@@ -314,14 +305,6 @@ function fillUserAssets($assets, $sender, $recipient, $logType, $data) {
     foreach ($assets as $key => $contents) {
         if ($key == 'items' && count($contents)) {
             $service = new \App\Services\InventoryManager;
-<<<<<<< HEAD
-            foreach ($contents as $asset) {
-                if (!$service->creditItem($sender, $recipient, $logType, $data, $asset['asset'], $asset['quantity'])) {
-                    return false;
-                }
-            }
-        } elseif ($key == 'currencies' && count($contents)) {
-=======
             foreach($contents as $asset)
                 if(!$service->creditItem($sender, $recipient, $logType, $data, $asset['asset'], $asset['quantity'])) return false;
         }
@@ -333,7 +316,6 @@ function fillUserAssets($assets, $sender, $recipient, $logType, $data) {
         }
         elseif($key == 'currencies' && count($contents))
         {
->>>>>>> 4ce3c4c70745c5449056cb191692917ca9946c3f
             $service = new \App\Services\CurrencyManager;
             foreach ($contents as $asset) {
                 if (!$service->creditCurrency($sender, $recipient, $logType, $data['data'], $asset['asset'], $asset['quantity'])) {
@@ -349,14 +331,6 @@ function fillUserAssets($assets, $sender, $recipient, $logType, $data) {
             }
         } elseif ($key == 'user_items' && count($contents)) {
             $service = new \App\Services\InventoryManager;
-<<<<<<< HEAD
-            foreach ($contents as $asset) {
-                if (!$service->moveStack($sender, $recipient, $logType, $data, $asset['asset'])) {
-                    return false;
-                }
-            }
-        } elseif ($key == 'characters' && count($contents)) {
-=======
             foreach($contents as $asset)
                 if(!$service->moveStack($sender, $recipient, $logType, $data, $asset['asset'])) return false;
         }
@@ -368,7 +342,6 @@ function fillUserAssets($assets, $sender, $recipient, $logType, $data) {
         }
         elseif($key == 'characters' && count($contents))
         {
->>>>>>> 4ce3c4c70745c5449056cb191692917ca9946c3f
             $service = new \App\Services\CharacterManager;
             foreach ($contents as $asset) {
                 if (!$service->moveCharacter($asset['asset'], $recipient, $data, $asset['quantity'], $logType)) {

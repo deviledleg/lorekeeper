@@ -16,9 +16,6 @@ use App\Models\Item\ItemCategory;
 use App\Models\User\User;
 use App\Models\User\UserCurrency;
 use App\Models\User\UserItem;
-<<<<<<< HEAD
-=======
-use App\Models\Character\CharacterItem;
 use App\Models\Item\ItemLog;
 
 use App\Models\Award\Award;
@@ -27,16 +24,12 @@ use App\Models\User\UserAward;
 use App\Models\Award\AwardLog;
 use App\Models\Character\CharacterAward;
 
-use App\Models\Character\CharacterTransfer;
 
 use App\Services\CurrencyManager;
 use App\Services\InventoryManager;
 use App\Services\AwardCaseManager;
->>>>>>> 4ce3c4c70745c5449056cb191692917ca9946c3f
 use App\Services\CharacterManager;
-use App\Services\CurrencyManager;
 use App\Services\DesignUpdateManager;
-use App\Services\InventoryManager;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\View;
@@ -411,8 +404,6 @@ class CharacterController extends Controller {
     }
 
     /**
-<<<<<<< HEAD
-=======
      * Handles inventory award processing, including transferring awards between the user and character.
      *
      * @param  \Illuminate\Http\Request       $request
@@ -458,17 +449,6 @@ class CharacterController extends Controller {
      * @param  App\Services\InventoryManager  $service
      * @return \Illuminate\Http\RedirectResponse
      */
-    private function postItemTransfer(Request $request, InventoryManager $service)
-    {
-        if($service->transferCharacterStack($this->character, $this->character->user, CharacterItem::find($request->get('ids')), $request->get('quantities'))) {
-            flash('Item transferred successfully.')->success();
-        }
-        else {
-            foreach($service->errors()->getMessages()['error'] as $error) flash($error)->error();
-        }
-        return redirect()->back();
-    }
-
     /**
      * Transfers inventory awards back to a user.
      *
@@ -494,16 +474,6 @@ class CharacterController extends Controller {
      * @param  App\Services\CharacterManager  $service
      * @return \Illuminate\Http\RedirectResponse
      */
-    private function postName(Request $request, InventoryManager $service)
-    {
-        if($service->nameStack($this->character, CharacterItem::find($request->get('ids')), $request->get('stack_name'))) {
-            flash('Item named successfully.')->success();
-        }
-        else {
-            foreach($service->errors()->getMessages()['error'] as $error) flash($error)->error();
-        }
-        return redirect()->back();
-    }
 
     /**
      * Deletes an inventory stack.
@@ -512,16 +482,6 @@ class CharacterController extends Controller {
      * @param  App\Services\CharacterManager  $service
      * @return \Illuminate\Http\RedirectResponse
      */
-    private function postDelete(Request $request, InventoryManager $service)
-    {
-        if($service->deleteStack($this->character, CharacterItem::find($request->get('ids')), $request->get('quantities'))) {
-            flash('Item deleted successfully.')->success();
-        }
-        else {
-            foreach($service->errors()->getMessages()['error'] as $error) flash($error)->error();
-        }
-        return redirect()->back();
-    }
     /**
      * Deletes an award stack.
      *
@@ -541,7 +501,6 @@ class CharacterController extends Controller {
     }
 
     /**
->>>>>>> 4ce3c4c70745c5449056cb191692917ca9946c3f
      * Shows a character's currency logs.
      *
      * @param string $slug

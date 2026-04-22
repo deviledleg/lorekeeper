@@ -13,21 +13,10 @@ use App\Models\Raffle\Raffle;
 use App\Models\Submission\Submission;
 use App\Models\User\User;
 use App\Models\User\UserItem;
-<<<<<<< HEAD
-=======
 use App\Models\User\UserAward;
 use App\Models\Award\Award;
 use App\Models\Award\AwardCategory;
-use App\Models\Character\Character;
-use App\Models\Item\Item;
-use App\Models\Raffle\Raffle;
-use App\Models\Item\ItemCategory;
-use App\Models\Currency\Currency;
-use App\Models\Submission\Submission;
-use App\Models\Submission\SubmissionCharacter;
-use App\Models\Prompt\Prompt;
 
->>>>>>> 4ce3c4c70745c5449056cb191692917ca9946c3f
 use App\Services\SubmissionManager;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -84,12 +73,8 @@ class SubmissionController extends Controller {
 
         return view('home.submission', [
             'submission' => $submission,
-<<<<<<< HEAD
-            'user'       => $submission->user,
-=======
             'user' => $submission->user,
             'awardsrow' => Award::all()->keyBy('id'),
->>>>>>> 4ce3c4c70745c5449056cb191692917ca9946c3f
             'categories' => ItemCategory::orderBy('sort', 'DESC')->get(),
             'inventory'  => $inventory,
             'itemsrow'   => Item::all()->keyBy('id'),
@@ -114,51 +99,6 @@ class SubmissionController extends Controller {
             'submission'          => new Submission,
             'prompts'             => Prompt::active()->sortAlphabetical()->pluck('name', 'id')->toArray(),
             'characterCurrencies' => Currency::where('is_character_owned', 1)->orderBy('sort_character', 'DESC')->pluck('name', 'id'),
-<<<<<<< HEAD
-            'categories'          => ItemCategory::visible(Auth::check() ? Auth::user() : null)->orderBy('sort', 'DESC')->get(),
-            'item_filter'         => Item::orderBy('name')->released()->get()->keyBy('id'),
-            'items'               => Item::orderBy('name')->released()->pluck('name', 'id'),
-            'character_items'     => Item::whereIn('item_category_id', ItemCategory::where('is_character_owned', 1)->pluck('id')->toArray())->orderBy('name')->released()->pluck('name', 'id'),
-            'currencies'          => Currency::where('is_user_owned', 1)->orderBy('name')->pluck('name', 'id'),
-            'inventory'           => $inventory,
-            'page'                => 'submission',
-            'expanded_rewards'    => config('lorekeeper.extensions.character_reward_expansion.expanded'),
-        ]));
-    }
-
-    /**
-     * Shows the edit submission page.
-     *
-     * @param mixed $id
-     *
-     * @return \Illuminate\Contracts\Support\Renderable
-     */
-    public function getEditSubmission(Request $request, $id) {
-        $closed = !Settings::get('is_prompts_open');
-        $inventory = UserItem::with('item')->whereNull('deleted_at')->where('count', '>', '0')->where('user_id', Auth::user()->id)->get();
-        $submission = Submission::where('id', $id)->where('status', 'Draft')->where('user_id', Auth::user()->id)->first();
-        if (!$submission) {
-            abort(404);
-        }
-
-        return view('home.edit_submission', [
-            'closed'              => $closed,
-            'isClaim'             => false,
-        ] + ($closed ? [] : [
-            'submission'          => $submission,
-            'prompts'             => Prompt::active()->sortAlphabetical()->pluck('name', 'id')->toArray(),
-            'characterCurrencies' => Currency::where('is_character_owned', 1)->orderBy('sort_character', 'DESC')->pluck('name', 'id'),
-            'categories'          => ItemCategory::orderBy('sort', 'DESC')->get(),
-            'item_filter'         => Item::orderBy('name')->released()->get()->keyBy('id'),
-            'items'               => Item::orderBy('name')->released()->pluck('name', 'id'),
-            'character_items'     => Item::whereIn('item_category_id', ItemCategory::where('is_character_owned', 1)->pluck('id')->toArray())->orderBy('name')->released()->pluck('name', 'id'),
-            'currencies'          => Currency::where('is_user_owned', 1)->orderBy('name')->pluck('name', 'id'),
-            'inventory'           => $inventory,
-            'page'                => 'submission',
-            'expanded_rewards'    => config('lorekeeper.extensions.character_reward_expansion.expanded'),
-            'selectedInventory'   => isset($submission->data['user']) ? parseAssetData($submission->data['user']) : null,
-            'count'               => Submission::where('prompt_id', $submission->prompt_id)->where('status', 'Approved')->where('user_id', $submission->user_id)->count(),
-=======
             'categories' => ItemCategory::orderBy('sort', 'DESC')->get(),
             'item_filter' => Item::orderBy('name')->released()->get()->keyBy('id'),
             'items' => Item::orderBy('name')->released()->pluck('name', 'id'),
@@ -169,7 +109,6 @@ class SubmissionController extends Controller {
             'inventory' => $inventory,
             'page' => 'submission',
             'expanded_rewards' => Config::get('lorekeeper.extensions.character_reward_expansion.expanded')
->>>>>>> 4ce3c4c70745c5449056cb191692917ca9946c3f
         ]));
     }
 
@@ -367,12 +306,8 @@ class SubmissionController extends Controller {
 
         return view('home.submission', [
             'submission' => $submission,
-<<<<<<< HEAD
-            'user'       => $submission->user,
-=======
             'user' => $submission->user,
             'awardsrow' => Award::all()->keyBy('id'),
->>>>>>> 4ce3c4c70745c5449056cb191692917ca9946c3f
             'categories' => ItemCategory::orderBy('sort', 'DESC')->get(),
             'itemsrow'   => Item::all()->keyBy('id'),
             'inventory'  => $inventory,
@@ -395,50 +330,6 @@ class SubmissionController extends Controller {
         ] + ($closed ? [] : [
             'submission'          => new Submission,
             'characterCurrencies' => Currency::where('is_character_owned', 1)->orderBy('sort_character', 'DESC')->pluck('name', 'id'),
-<<<<<<< HEAD
-            'categories'          => ItemCategory::visible(Auth::check() ? Auth::user() : null)->orderBy('sort', 'DESC')->get(),
-            'inventory'           => $inventory,
-            'item_filter'         => Item::orderBy('name')->released()->get()->keyBy('id'),
-            'items'               => Item::orderBy('name')->released()->pluck('name', 'id'),
-            'currencies'          => Currency::where('is_user_owned', 1)->orderBy('name')->pluck('name', 'id'),
-            'raffles'             => Raffle::where('rolled_at', null)->where('is_active', 1)->orderBy('name')->pluck('name', 'id'),
-            'page'                => 'submission',
-            'expanded_rewards'    => config('lorekeeper.extensions.character_reward_expansion.expanded'),
-        ]));
-    }
-
-    /**
-     * Shows the edit submission page.
-     *
-     * @param mixed $id
-     *
-     * @return \Illuminate\Contracts\Support\Renderable
-     */
-    public function getEditClaim(Request $request, $id) {
-        $closed = !Settings::get('is_claims_open');
-        $inventory = UserItem::with('item')->whereNull('deleted_at')->where('count', '>', '0')->where('user_id', Auth::user()->id)->get();
-        $submission = Submission::where('id', $id)->where('status', 'Draft')->where('user_id', Auth::user()->id)->first();
-        if (!$submission) {
-            abort(404);
-        }
-
-        return view('home.edit_submission', [
-            'closed'                => $closed,
-            'isClaim'               => true,
-        ] + ($closed ? [] : [
-            'submission'            => $submission,
-            'characterCurrencies'   => Currency::where('is_character_owned', 1)->orderBy('sort_character', 'DESC')->pluck('name', 'id'),
-            'character_items'       => Item::whereIn('item_category_id', ItemCategory::where('is_character_owned', 1)->pluck('id')->toArray())->orderBy('name')->released()->pluck('name', 'id'),
-            'categories'            => ItemCategory::orderBy('sort', 'DESC')->get(),
-            'currencies'            => Currency::where('is_user_owned', 1)->orderBy('name')->pluck('name', 'id'),
-            'item_filter'           => Item::orderBy('name')->released()->get()->keyBy('id'),
-            'items'                 => Item::orderBy('name')->released()->pluck('name', 'id'),
-            'inventory'             => $inventory,
-            'raffles'               => Raffle::where('rolled_at', null)->where('is_active', 1)->orderBy('name')->pluck('name', 'id'),
-            'page'                  => 'submission',
-            'expanded_rewards'      => config('lorekeeper.extensions.character_reward_expansion.expanded'),
-            'selectedInventory'     => isset($submission->data['user']) ? parseAssetData($submission->data['user']) : null,
-=======
             'categories' => ItemCategory::orderBy('sort', 'DESC')->get(),
             'inventory' => $inventory,
             'item_filter' => Item::orderBy('name')->released()->get()->keyBy('id'),
@@ -449,7 +340,6 @@ class SubmissionController extends Controller {
             'raffles' => Raffle::where('rolled_at', null)->where('is_active', 1)->orderBy('name')->pluck('name', 'id'),
             'page' => 'submission',
             'expanded_rewards' => Config::get('lorekeeper.extensions.character_reward_expansion.expanded')
->>>>>>> 4ce3c4c70745c5449056cb191692917ca9946c3f
         ]));
     }
 

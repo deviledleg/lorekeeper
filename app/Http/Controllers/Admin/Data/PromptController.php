@@ -2,8 +2,6 @@
 
 namespace App\Http\Controllers\Admin\Data;
 
-<<<<<<< HEAD
-=======
 use Illuminate\Http\Request;
 
 use Auth;
@@ -18,13 +16,7 @@ use App\Models\Raffle\Raffle;
 
 use App\Services\PromptService;
 
->>>>>>> 4ce3c4c70745c5449056cb191692917ca9946c3f
 use App\Http\Controllers\Controller;
-use App\Models\Prompt\Prompt;
-use App\Models\Prompt\PromptCategory;
-use App\Services\PromptService;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 
 class PromptController extends Controller {
     /*
@@ -194,14 +186,11 @@ class PromptController extends Controller {
         return view('admin.prompts.create_edit_prompt', [
             'prompt'     => new Prompt,
             'categories' => ['none' => 'No category'] + PromptCategory::orderBy('sort', 'DESC')->pluck('name', 'id')->toArray(),
-<<<<<<< HEAD
-=======
             'items' => Item::orderBy('name')->pluck('name', 'id'),
             'awards' => Award::orderBy('name')->pluck('name', 'id'),
             'currencies' => Currency::where('is_user_owned', 1)->orderBy('name')->pluck('name', 'id'),
             'tables' => LootTable::orderBy('name')->pluck('name', 'id'),
             'raffles' => Raffle::where('rolled_at', null)->where('is_active', 1)->orderBy('name')->pluck('name', 'id'),
->>>>>>> 4ce3c4c70745c5449056cb191692917ca9946c3f
         ]);
     }
 
@@ -221,14 +210,11 @@ class PromptController extends Controller {
         return view('admin.prompts.create_edit_prompt', [
             'prompt'     => $prompt,
             'categories' => ['none' => 'No category'] + PromptCategory::orderBy('sort', 'DESC')->pluck('name', 'id')->toArray(),
-<<<<<<< HEAD
-=======
             'items' => Item::orderBy('name')->pluck('name', 'id'),
             'awards' => Award::orderBy('name')->pluck('name', 'id'),
             'currencies' => Currency::where('is_user_owned', 1)->orderBy('name')->pluck('name', 'id'),
             'tables' => LootTable::orderBy('name')->pluck('name', 'id'),
             'raffles' => Raffle::where('rolled_at', null)->where('is_active', 1)->orderBy('name')->pluck('name', 'id'),
->>>>>>> 4ce3c4c70745c5449056cb191692917ca9946c3f
         ]);
     }
 

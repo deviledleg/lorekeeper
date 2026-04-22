@@ -8,27 +8,19 @@ use App\Models\Character\CharacterImageCreator;
 use App\Models\Comment\CommentLike;
 use App\Models\Currency\Currency;
 use App\Models\Currency\CurrencyLog;
-<<<<<<< HEAD
-=======
 use App\Models\Item\ItemLog;
 use App\Models\Shop\ShopLog;
 use App\Models\Award\AwardLog;
 use App\Models\User\UserCharacterLog;
 use App\Models\Submission\Submission;
 use App\Models\Submission\SubmissionCharacter;
-use App\Models\Character\CharacterBookmark;
 use App\Models\Gallery\GallerySubmission;
->>>>>>> 4ce3c4c70745c5449056cb191692917ca9946c3f
 use App\Models\Gallery\GalleryCollaborator;
 use App\Models\Gallery\GalleryFavorite;
-use App\Models\Gallery\GallerySubmission;
 use App\Models\Item\Item;
-use App\Models\Item\ItemLog;
 use App\Models\Notification;
 use App\Models\Rank\Rank;
 use App\Models\Rank\RankPower;
-use App\Models\Shop\ShopLog;
-use App\Models\Submission\Submission;
 use App\Traits\Commenter;
 use Carbon\Carbon;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
@@ -37,10 +29,6 @@ use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Facades\Auth;
 use Laravel\Fortify\TwoFactorAuthenticatable;
 
-<<<<<<< HEAD
-class User extends Authenticatable implements MustVerifyEmail {
-    use Commenter, Notifiable, TwoFactorAuthenticatable;
-=======
 use App\Models\Character\CharacterDesignUpdate;
 use App\Models\Character\CharacterTransfer;
 use App\Models\Trade;
@@ -48,7 +36,6 @@ use App\Models\Trade;
 class User extends Authenticatable implements MustVerifyEmail
 {
     use Notifiable, Commenter;
->>>>>>> 4ce3c4c70745c5449056cb191692917ca9946c3f
 
     /**
      * The attributes that are mass assignable.
@@ -214,7 +201,6 @@ class User extends Authenticatable implements MustVerifyEmail
     /**
      * Get all of the user's character bookmarks.
      */
-<<<<<<< HEAD
     public function bookmarks() {
         return $this->hasMany(CharacterBookmark::class)->where('user_id', $this->id);
     }
@@ -224,11 +210,6 @@ class User extends Authenticatable implements MustVerifyEmail
      */
     public function commentLikes() {
         return $this->hasMany(CommentLike::class);
-=======
-    public function bookmarks()
-    {
-        return $this->hasMany('App\Models\Character\CharacterBookmark')->where('user_id', $this->id);
->>>>>>> 4ce3c4c70745c5449056cb191692917ca9946c3f
     }
 
     /**********************************************************************************************
@@ -481,21 +462,11 @@ class User extends Authenticatable implements MustVerifyEmail
     /**
      * Check if user is of age.
      */
-<<<<<<< HEAD
-    public function getcheckBirthdayAttribute() {
-        $bday = $this->birthday;
-        if (!$bday || $bday->diffInYears(carbon::now()) < 13) {
-            return false;
-        } else {
-            return true;
-        }
-=======
     public function getcheckBirthdayAttribute()
     {
         $bday = $this->birthday;
         if(!$bday || $bday->diffInYears(carbon::now()) < 13) return false;
         else return true;
->>>>>>> 4ce3c4c70745c5449056cb191692917ca9946c3f
     }
     /**********************************************************************************************
 
