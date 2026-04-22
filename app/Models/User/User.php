@@ -8,6 +8,17 @@ use App\Models\Character\CharacterImageCreator;
 use App\Models\Comment\CommentLike;
 use App\Models\Currency\Currency;
 use App\Models\Currency\CurrencyLog;
+<<<<<<< HEAD
+=======
+use App\Models\Item\ItemLog;
+use App\Models\Shop\ShopLog;
+use App\Models\Award\AwardLog;
+use App\Models\User\UserCharacterLog;
+use App\Models\Submission\Submission;
+use App\Models\Submission\SubmissionCharacter;
+use App\Models\Character\CharacterBookmark;
+use App\Models\Gallery\GallerySubmission;
+>>>>>>> 4ce3c4c70745c5449056cb191692917ca9946c3f
 use App\Models\Gallery\GalleryCollaborator;
 use App\Models\Gallery\GalleryFavorite;
 use App\Models\Gallery\GallerySubmission;
@@ -26,8 +37,18 @@ use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Facades\Auth;
 use Laravel\Fortify\TwoFactorAuthenticatable;
 
+<<<<<<< HEAD
 class User extends Authenticatable implements MustVerifyEmail {
     use Commenter, Notifiable, TwoFactorAuthenticatable;
+=======
+use App\Models\Character\CharacterDesignUpdate;
+use App\Models\Character\CharacterTransfer;
+use App\Models\Trade;
+
+class User extends Authenticatable implements MustVerifyEmail
+{
+    use Notifiable, Commenter;
+>>>>>>> 4ce3c4c70745c5449056cb191692917ca9946c3f
 
     /**
      * The attributes that are mass assignable.
@@ -165,6 +186,14 @@ class User extends Authenticatable implements MustVerifyEmail {
     }
 
     /**
+     * Get the user's awards.
+     */
+    public function awards()
+    {
+        return $this->belongsToMany('App\Models\Award\Award', 'user_awards')->withPivot('count', 'data', 'updated_at', 'id')->whereNull('user_awards.deleted_at');
+    }
+
+    /**
      * Get all of the user's gallery submissions.
      */
     public function gallerySubmissions() {
@@ -185,6 +214,7 @@ class User extends Authenticatable implements MustVerifyEmail {
     /**
      * Get all of the user's character bookmarks.
      */
+<<<<<<< HEAD
     public function bookmarks() {
         return $this->hasMany(CharacterBookmark::class)->where('user_id', $this->id);
     }
@@ -194,6 +224,11 @@ class User extends Authenticatable implements MustVerifyEmail {
      */
     public function commentLikes() {
         return $this->hasMany(CommentLike::class);
+=======
+    public function bookmarks()
+    {
+        return $this->hasMany('App\Models\Character\CharacterBookmark')->where('user_id', $this->id);
+>>>>>>> 4ce3c4c70745c5449056cb191692917ca9946c3f
     }
 
     /**********************************************************************************************
@@ -446,6 +481,7 @@ class User extends Authenticatable implements MustVerifyEmail {
     /**
      * Check if user is of age.
      */
+<<<<<<< HEAD
     public function getcheckBirthdayAttribute() {
         $bday = $this->birthday;
         if (!$bday || $bday->diffInYears(carbon::now()) < 13) {
@@ -453,6 +489,13 @@ class User extends Authenticatable implements MustVerifyEmail {
         } else {
             return true;
         }
+=======
+    public function getcheckBirthdayAttribute()
+    {
+        $bday = $this->birthday;
+        if(!$bday || $bday->diffInYears(carbon::now()) < 13) return false;
+        else return true;
+>>>>>>> 4ce3c4c70745c5449056cb191692917ca9946c3f
     }
     /**********************************************************************************************
 
@@ -559,6 +602,23 @@ class User extends Authenticatable implements MustVerifyEmail {
         } else {
             return $query->paginate(30);
         }
+    }
+        /**
+     * Get the user's award logs.
+     *
+     * @param  int  $limit
+     * @return \Illuminate\Support\Collection|\Illuminate\Pagination\LengthAwarePaginator
+     */
+    public function getAwardLogs($limit = 10)
+    {
+        $user = $this;
+        $query = AwardLog::with('award')->where(function($query) use ($user) {
+            $query->with('sender')->where('sender_type', 'User')->where('sender_id', $user->id)->whereNotIn('log_type', ['Staff Grant', 'Prompt Rewards', 'Claim Rewards']);
+        })->orWhere(function($query) use ($user) {
+            $query->with('recipient')->where('recipient_type', 'User')->where('recipient_id', $user->id)->where('log_type', '!=', 'Staff Removal');
+        })->orderBy('id', 'DESC');
+        if($limit) return $query->take($limit)->get();
+        else return $query->paginate(30);
     }
 
     /**

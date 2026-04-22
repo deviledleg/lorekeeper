@@ -75,11 +75,19 @@ class SpeciesController extends Controller {
         $data = $request->only([
             'name', 'description', 'image', 'remove_image', 'masterlist_sub_id', 'is_visible',
         ]);
+<<<<<<< HEAD
         if ($id && $service->updateSpecies(Species::find($id), $data, Auth::user())) {
             flash('Species updated successfully.')->success();
         } elseif (!$id && $species = $service->createSpecies($data, Auth::user())) {
             flash('Species created successfully.')->success();
 
+=======
+        if($id && $service->updateSpecies(Species::find($id), $data, Auth::user())) {
+            flash(ucfirst(__('lorekeeper.species')).' updated successfully.')->success();
+        }
+        else if (!$id && $species = $service->createSpecies($data, Auth::user())) {
+            flash(ucfirst(__('lorekeeper.species')).' created successfully.')->success();
+>>>>>>> 4ce3c4c70745c5449056cb191692917ca9946c3f
             return redirect()->to('admin/data/species/edit/'.$species->id);
         } else {
             foreach ($service->errors()->getMessages()['error'] as $error) {
@@ -113,6 +121,7 @@ class SpeciesController extends Controller {
      *
      * @return \Illuminate\Http\RedirectResponse
      */
+<<<<<<< HEAD
     public function postDeleteSpecies(Request $request, SpeciesService $service, $id) {
         if ($id && $service->deleteSpecies(Species::find($id))) {
             flash('Species deleted successfully.')->success();
@@ -120,6 +129,12 @@ class SpeciesController extends Controller {
             foreach ($service->errors()->getMessages()['error'] as $error) {
                 flash($error)->error();
             }
+=======
+    public function postDeleteSpecies(Request $request, SpeciesService $service, $id)
+    {
+        if($id && $service->deleteSpecies(Species::find($id))) {
+            flash(ucfirst(__('lorekeeper.species')).' deleted successfully.')->success();
+>>>>>>> 4ce3c4c70745c5449056cb191692917ca9946c3f
         }
 
         return redirect()->to('admin/data/species');
@@ -132,6 +147,7 @@ class SpeciesController extends Controller {
      *
      * @return \Illuminate\Http\RedirectResponse
      */
+<<<<<<< HEAD
     public function postSortSpecies(Request $request, SpeciesService $service) {
         if ($service->sortSpecies($request->get('sort'))) {
             flash('Species order updated successfully.')->success();
@@ -139,6 +155,12 @@ class SpeciesController extends Controller {
             foreach ($service->errors()->getMessages()['error'] as $error) {
                 flash($error)->error();
             }
+=======
+    public function postSortSpecies(Request $request, SpeciesService $service)
+    {
+        if($service->sortSpecies($request->get('sort'))) {
+            flash(ucfirst(__('lorekeeper.species')).' order updated successfully.')->success();
+>>>>>>> 4ce3c4c70745c5449056cb191692917ca9946c3f
         }
 
         return redirect()->back();
@@ -199,11 +221,19 @@ class SpeciesController extends Controller {
         $data = $request->only([
             'species_id', 'name', 'description', 'image', 'remove_image', 'is_visible',
         ]);
+<<<<<<< HEAD
         if ($id && $service->updateSubtype(Subtype::find($id), $data, Auth::user())) {
             flash('Subtype updated successfully.')->success();
         } elseif (!$id && $subtype = $service->createSubtype($data, Auth::user())) {
             flash('Subtype created successfully.')->success();
 
+=======
+        if($id && $service->updateSubtype(Subtype::find($id), $data, Auth::user())) {
+            flash(ucfirst(__('lorekeeper.subtype')).' updated successfully.')->success();
+        }
+        else if (!$id && $subtype = $service->createSubtype($data, Auth::user())) {
+            flash(ucfirst(__('lorekeeper.subtype')).' created successfully.')->success();
+>>>>>>> 4ce3c4c70745c5449056cb191692917ca9946c3f
             return redirect()->to('admin/data/subtypes/edit/'.$subtype->id);
         } else {
             foreach ($service->errors()->getMessages()['error'] as $error) {
@@ -237,6 +267,7 @@ class SpeciesController extends Controller {
      *
      * @return \Illuminate\Http\RedirectResponse
      */
+<<<<<<< HEAD
     public function postDeleteSubtype(Request $request, SpeciesService $service, $id) {
         if ($id && $service->deleteSubtype(Subtype::find($id))) {
             flash('Subtype deleted successfully.')->success();
@@ -244,6 +275,12 @@ class SpeciesController extends Controller {
             foreach ($service->errors()->getMessages()['error'] as $error) {
                 flash($error)->error();
             }
+=======
+    public function postDeleteSubtype(Request $request, SpeciesService $service, $id)
+    {
+        if($id && $service->deleteSubtype(Subtype::find($id))) {
+            flash(ucfirst(__('lorekeeper.subtype')).' deleted successfully.')->success();
+>>>>>>> 4ce3c4c70745c5449056cb191692917ca9946c3f
         }
 
         return redirect()->to('admin/data/subtypes');

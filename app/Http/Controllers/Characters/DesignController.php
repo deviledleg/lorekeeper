@@ -160,12 +160,19 @@ class DesignController extends Controller {
      */
     public function getAddons($id) {
         $r = CharacterDesignUpdate::find($id);
+<<<<<<< HEAD
         if (!$r || ($r->user_id != Auth::user()->id && !Auth::user()->hasPower('manage_characters'))) {
             abort(404);
         }
         if ($r->status == 'Draft' && $r->user_id == Auth::user()->id) {
             $inventory = UserItem::with('item')->whereNull('deleted_at')->where('count', '>', '0')->where('user_id', $r->user_id)->get();
         } else {
+=======
+        if(!$r || ($r->user_id != Auth::user()->id && !Auth::user()->hasPower('manage_characters'))) abort(404);
+        if($r->status == 'Draft' && $r->user_id == Auth::user()->id)
+            $inventory = UserItem::with('item')->whereNull('deleted_at')->where('count', '>', '0')->where('user_id', $r->user_id)->get();
+        else
+>>>>>>> 4ce3c4c70745c5449056cb191692917ca9946c3f
             $inventory = isset($r->data['user']) ? parseAssetData($r->data['user']) : null;
         }
 
@@ -221,11 +228,19 @@ class DesignController extends Controller {
         }
 
         return view('character.design.features', [
+<<<<<<< HEAD
             'request'   => $r,
             'specieses' => ['0' => 'Select Species'] + Species::visible()->orderBy('sort', 'DESC')->pluck('name', 'id')->toArray(),
             'subtypes'  => ['0' => 'No Subtype'] + Subtype::visible()->where('species_id', '=', $r->species_id)->orderBy('sort', 'DESC')->pluck('name', 'id')->toArray(),
             'rarities'  => ['0' => 'Select Rarity'] + Rarity::orderBy('sort', 'DESC')->pluck('name', 'id')->toArray(),
             'features'  => Feature::getDropdownItems(),
+=======
+            'request' => $r,
+            'specieses' => ['0' => 'Select '.ucfirst('lorekeeper.species')] + Species::orderBy('sort', 'DESC')->pluck('name', 'id')->toArray(),
+            'subtypes' => ['0' => 'No '.__('lorekeeper.subtype')] + Subtype::where('species_id','=',$r->species_id)->orderBy('sort', 'DESC')->pluck('name', 'id')->toArray(),
+            'rarities' => ['0' => 'Select Rarity'] + Rarity::orderBy('sort', 'DESC')->pluck('name', 'id')->toArray(),
+            'features' => Feature::orderBy('name')->pluck('name', 'id')->toArray()
+>>>>>>> 4ce3c4c70745c5449056cb191692917ca9946c3f
         ]);
     }
 
@@ -238,10 +253,19 @@ class DesignController extends Controller {
         $species = $request->input('species');
         $id = $request->input('id');
 
+<<<<<<< HEAD
         return view('character.design._features_subtype', [
             'subtypes' => ['0' => 'Select Subtype'] + Subtype::visible()->where('species_id', '=', $species)->orderBy('sort', 'DESC')->pluck('name', 'id')->toArray(),
             'subtype'  => $id,
         ]);
+=======
+      $species = $request->input('species');
+      $id = $request->input('id');
+      return view('character.design._features_subtype', [
+          'subtypes' => ['0' => 'Select '.ucfirst('lorekeeper.subtype')] + Subtype::where('species_id','=',$species)->orderBy('sort', 'DESC')->pluck('name', 'id')->toArray(),
+          'subtype' => $id
+      ]);
+>>>>>>> 4ce3c4c70745c5449056cb191692917ca9946c3f
     }
 
     /**

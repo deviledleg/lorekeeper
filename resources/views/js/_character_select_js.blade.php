@@ -60,7 +60,17 @@
                     $cell.children('.character-items').addClass('show');
                     $cell.children('.character-items').removeClass('hide');
                     $cell.children('.character-items');
+<<<<<<< HEAD
                 } else if (val == 'Currency') {
+=======
+                }
+                else if(val == 'Award') {
+                    $cell.children('.character-awards').addClass('show');
+                    $cell.children('.character-awards').removeClass('hide');
+                    $cell.children('.character-awards');
+                }
+                else if (val == 'Currency'){
+>>>>>>> 4ce3c4c70745c5449056cb191692917ca9946c3f
                     $cell.children('.character-currencies').addClass('show');
                     $cell.children('.character-currencies').removeClass('hide');
                 } else if (val == 'LootTable') {
@@ -76,6 +86,7 @@
             node.find('.character-rewardable-quantity').attr('name', 'character_rewardable_quantity[' + id + '][]');
             node.find('.character-currency-id').attr('name', 'character_rewardable_id[' + id + '][]');
             node.find('.character-item-id').attr('name', 'character_rewardable_id[' + id + '][]');
+            node.find('.character-award-id').attr('name', 'character_rewardable_id[' + id + '][]');
             node.find('.character-table-id').attr('name', 'character_rewardable_id[' + id + '][]');
         }
 

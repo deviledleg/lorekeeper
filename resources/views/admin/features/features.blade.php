@@ -39,6 +39,7 @@
         {!! Form::close() !!}
     </div>
 
+<<<<<<< HEAD
     @if (!count($features))
         <p>No traits found.</p>
     @else
@@ -94,6 +95,19 @@
                     </div>
                 @endforeach
             </div>
+=======
+@if(!count($features))
+    <p>No traits found.</p>
+@else
+    {!! $features->render() !!}
+      <div class="row ml-md-2">
+        <div class="d-flex row flex-wrap col-12 pb-1 px-0 ubt-bottom">
+          <div class="col-12 col-md-3 font-weight-bold">Name</div>
+          <div class="col-6 col-md-2 font-weight-bold">Rarity</div>
+          <div class="col-6 col-md-2 font-weight-bold">Category</div>
+          <div class="col-6 col-md-2 font-weight-bold">Species</div>
+          <div class="col-6 col-md-2 font-weight-bold">{{ ucfirst(__('lorekeeper.subtype')) }}</div>
+>>>>>>> 4ce3c4c70745c5449056cb191692917ca9946c3f
         </div>
         {!! $features->render() !!}
         <div class="text-center mt-4 small text-muted">{{ $features->total() }} result{{ $features->total() == 1 ? '' : 's' }} found.</div>

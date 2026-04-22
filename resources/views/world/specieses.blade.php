@@ -5,8 +5,13 @@
 @endsection
 
 @section('content')
+<<<<<<< HEAD
     {!! breadcrumbs(['World' => 'world', 'Species' => 'world/species']) !!}
     <h1>Species</h1>
+=======
+{!! breadcrumbs(['World' => 'world',  ucfirst(__('lorekeeper.species')) => 'world/species']) !!}
+<h1>Species</h1>
+>>>>>>> 4ce3c4c70745c5449056cb191692917ca9946c3f
 
     <div>
         {!! Form::open(['method' => 'GET', 'class' => 'form-inline justify-content-end']) !!}

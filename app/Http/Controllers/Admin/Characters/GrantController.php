@@ -7,8 +7,12 @@ use App\Models\Character\Character;
 use App\Models\Currency\Currency;
 use App\Services\CurrencyManager;
 use App\Services\InventoryManager;
+<<<<<<< HEAD
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+=======
+use App\Services\AwardCaseManager;
+>>>>>>> 4ce3c4c70745c5449056cb191692917ca9946c3f
 
 class GrantController extends Controller {
     /**
@@ -50,6 +54,26 @@ class GrantController extends Controller {
             }
         }
 
+        return redirect()->back();
+    }
+
+    /**
+     * Grants awards to characters.
+     *
+     * @param  string                          $slug
+     * @param  \Illuminate\Http\Request        $request
+     * @param  App\Services\InventoryManager   $service
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function postCharacterAwards($slug, Request $request, AwardCaseManager $service)
+    {
+        $data = $request->only(['award_ids', 'quantities', 'data', 'disallow_transfer', 'notes']);
+        if($service->grantCharacterAwards($data,  Character::where('slug', $slug)->first(), Auth::user())) {
+            flash(ucfirst(__('awards.awards')).' granted successfully.')->success();
+        }
+        else {
+            foreach($service->errors()->getMessages()['error'] as $error) flash($error)->error();
+        }
         return redirect()->back();
     }
 }

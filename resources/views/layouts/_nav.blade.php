@@ -43,9 +43,14 @@
                             <a class="dropdown-item" href="{{ url('bank') }}">
                                 Bank
                             </a>
+<<<<<<< HEAD
                             <div class="dropdown-divider"></div>
                             <a class="dropdown-item" href="{{ url('comments/liked') }}">
                                 Liked Comments
+=======
+                            <a class="dropdown-item" href="{{ url('awardcase') }}">
+                                {{ ucfirst(__('awards.awards')) }}
+>>>>>>> 4ce3c4c70745c5449056cb191692917ca9946c3f
                             </a>
                         </div>
                     </li>

@@ -1,8 +1,13 @@
 <ul>
     <li class="sidebar-header"><a href="{{ $character->url }}" class="card-link">{{ $character->fullName }}</a></li>
     <li class="sidebar-section">
+<<<<<<< HEAD
         <div class="sidebar-section-header">Character</div>
         <div class="sidebar-item"><a href="{{ $character->url . '/profile' }}" class="{{ set_active('myo/' . $character->id . '/profile') }}">Profile</a></div>
+=======
+        <div class="sidebar-section-header">{{ucfirst(__('lorekeeper.character'))}}</div>
+        <div class="sidebar-item"><a href="{{ $character->url . '/profile' }}" class="{{ set_active('myo/'.$character->id.'/profile') }}">Profile</a></div>
+>>>>>>> 4ce3c4c70745c5449056cb191692917ca9946c3f
     </li>
     <li class="sidebar-section">
         <div class="sidebar-section-header">History</div>

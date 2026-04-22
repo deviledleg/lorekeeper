@@ -112,7 +112,15 @@ return [
                 'name' => 'Item Grants',
                 'url'  => 'admin/grants/items',
             ],
+<<<<<<< HEAD
         ],
+=======
+            [
+                'name' => 'Award Grants',
+                'url' => 'admin/grants/awards'
+            ],
+        ]
+>>>>>>> 4ce3c4c70745c5449056cb191692917ca9946c3f
     ],
     'Masterlist' => [
         'power' => 'manage_characters',
@@ -149,6 +157,14 @@ return [
             [
                 'name' => 'Galleries',
                 'url'  => 'admin/data/galleries',
+            ],
+            [
+                'name' => 'Award Categories',
+                'url' => 'admin/data/award-categories'
+            ],
+            [
+                'name' => 'Awards',
+                'url' => 'admin/data/awards'
             ],
             [
                 'name' => 'Character Categories',
