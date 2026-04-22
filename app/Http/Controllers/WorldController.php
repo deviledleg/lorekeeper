@@ -17,6 +17,9 @@ use App\Models\Award\Award;
 use App\Models\Feature\FeatureCategory;
 use App\Models\Feature\Feature;
 use App\Models\Character\CharacterCategory;
+use App\Models\Character\CharacterTitle;
+use App\Models\Prompt\PromptCategory;
+use App\Models\Prompt\Prompt;
 use App\Models\Shop\Shop;
 use App\Models\Shop\ShopStock;
 use App\Models\User\User;
@@ -421,6 +424,63 @@ class WorldController extends Controller {
         $data = $request->only(['award_category_id', 'name', 'sort', 'ownership']);
         if(isset($data['award_category_id']) && $data['award_category_id'] != 'none')
             $query->where('award_category_id', $data['award_category_id']);
+        $query = CharacterCategory::query();
+        $name = $request->get('name');
+        if($name) $query->where('name', 'LIKE', '%'.$name.'%')->orWhere('code', 'LIKE', '%'.$name.'%');
+        return view('world.character_categories', [
+            'categories' => $query->orderBy('sort', 'DESC')->paginate(20)->appends($request->query()),
+        ]);
+    }
+
+    /**
+     * Shows the character titles page.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Contracts\Support\Renderable
+     */
+    public function getCharacterTitles(Request $request)
+    {
+        $query = CharacterTitle::query();
+        $title = $request->get('title');
+        $rarity = $request->get('rarity_id');
+        if($title) $query->where('title', 'LIKE', '%'.$title.'%');
+        if(isset($rarity) && $rarity != 'none')
+            $query->where('rarity_id', $rarity);
+
+        return view('world.character_titles', [
+            'titles' => $query->orderBy('sort', 'DESC')->paginate(20)->appends($request->query()),
+            'rarities' => ['none' => 'Any Rarity'] + Rarity::orderBy('sort', 'DESC')->pluck('name', 'id')->toArray(),
+        ]);
+    }
+
+    /**
+     * Shows the prompt categories page.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Contracts\Support\Renderable
+     */
+    public function getPromptCategories(Request $request)
+    {
+        $query = PromptCategory::query();
+        $name = $request->get('name');
+        if($name) $query->where('name', 'LIKE', '%'.$name.'%');
+        return view('world.prompt_categories', [
+            'categories' => $query->orderBy('sort', 'DESC')->paginate(20)->appends($request->query()),
+        ]);
+    }
+
+    /**
+     * Shows the prompts page.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Contracts\Support\Renderable
+     */
+    public function getPrompts(Request $request)
+    {
+        $query = Prompt::active()->with('category');
+        $data = $request->only(['prompt_category_id', 'name', 'sort']);
+        if(isset($data['prompt_category_id']) && $data['prompt_category_id'] != 'none')
+            $query->where('prompt_category_id', $data['prompt_category_id']);
         if(isset($data['name']))
             $query->where('name', 'LIKE', '%'.$data['name'].'%');
 

@@ -16,6 +16,8 @@ use App\Models\User\UserItem;
 use App\Services\DesignUpdateManager;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use App\Models\Character\CharacterTitle;
+use App\Services\CharacterManager;
 
 class DesignController extends Controller {
     /**
@@ -169,6 +171,9 @@ class DesignController extends Controller {
         if(!$r || ($r->user_id != Auth::user()->id && !Auth::user()->hasPower('manage_characters'))) abort(404);
         if($r->status == 'Draft' && $r->user_id == Auth::user()->id)
             $inventory = UserItem::with('item')->whereNull('deleted_at')->where('count', '>', '0')->where('user_id', $r->user_id)->get();
+        if(!$r || ($r->user_id != Auth::user()->id && !Auth::user()->hasPower('manage_characters'))) abort(404);
+        if($r->status == 'Draft' && $r->user_id == Auth::user()->id)
+            $inventory = UserItem::with('item')->whereNull('deleted_at')->where('count', '>', '0')->where('user_id', $r->user_id)->get();
         else
             $inventory = isset($r->data['user']) ? parseAssetData($r->data['user']) : null;
         }
@@ -229,6 +234,7 @@ class DesignController extends Controller {
             'specieses' => ['0' => 'Select '.ucfirst('lorekeeper.species')] + Species::orderBy('sort', 'DESC')->pluck('name', 'id')->toArray(),
             'subtypes' => ['0' => 'No '.__('lorekeeper.subtype')] + Subtype::where('species_id','=',$r->species_id)->orderBy('sort', 'DESC')->pluck('name', 'id')->toArray(),
             'rarities' => ['0' => 'Select Rarity'] + Rarity::orderBy('sort', 'DESC')->pluck('name', 'id')->toArray(),
+            'titles' => ['0' => 'Select Title', 'custom' => 'Custom Title'] + CharacterTitle::orderBy('sort', 'DESC')->pluck('title', 'id')->toArray(),
             'features' => Feature::orderBy('name')->pluck('name', 'id')->toArray()
         ]);
     }

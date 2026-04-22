@@ -42,6 +42,14 @@
                         {!! Form::label('subtype_id', ucfirst(__('lorekeeper.species')).' '.ucfirst(__('lorekeeper.subtype')).':'    ) !!}
                         {!! Form::select('subtype_id', $subtypes, Request::get('subtype_id'), ['class' => 'form-control']) !!}
                     </div>
+                    <div class="masterlist-search-field">
+                        {!! Form::label('title_id', 'Title: ') !!}
+                        {!! Form::select('title_id', $titles, Request::get('title_id'), ['class' => 'form-control', 'id' => 'customTitle']) !!}
+                    </div>
+                    <div class="masterlist-search-field" id="customTitleOptions">
+                        {!! Form::label('title_data', 'Custom Title: ') !!}
+                        {!! Form::text('title_data', Request::get('title_data'), ['class' => 'form-control']) !!}
+                    </div>
                 @endif
                 <hr/>
 >>>>>>> 4ce3c4c70745c5449056cb191692917ca9946c3f
@@ -214,7 +222,15 @@
                     <a href="{{ $character->url }}" class="h5 mb-0">@if(!$character->is_visible) <i class="fas fa-eye-slash"></i> @endif {{ $character->fullName }}</a>
                 </div>
                 <div class="small">
+<<<<<<< HEAD
                     {!! $character->image->species_id ? $character->image->species->displayName : 'No '.ucfirst(__('lorekeeper.species')) !!} ・ {!! $character->image->rarity_id ? $character->image->rarity->displayName : 'No Rarity' !!} ・ {!! $character->displayOwner !!}
+=======
+                    {!! $character->image->species_id ? $character->image->species->displayName : 'No Species' !!} ・ {!! $character->image->rarity_id ? $character->image->rarity->displayName : 'No Rarity' !!}
+                    @if(Settings::get('character_title_display') && $character->image->hasTitle)
+                        ・ {!! $character->image->title_id ? $character->image->title->displayNameShort : (isset($character->image->title_data['short']) ? nl2br(htmlentities($character->image->title_data['short'])) : nl2br(htmlentities($character->image->title_data['full']))) !!}
+                    @endif
+                     ・ {!! $character->displayOwner !!}
+>>>>>>> 65cfc423bc4d79dd495f1e58c50a94f243fcff48
                 </div>
             </div>
 >>>>>>> 4ce3c4c70745c5449056cb191692917ca9946c3f
@@ -229,7 +245,14 @@
                 <th>Owner</th>
                 <th>Name</th>
                 <th>Rarity</th>
+<<<<<<< HEAD
                 <th>{{ ucfirst(__('lorekeeper.species')) }}</th>
+=======
+                <th>Species</th>
+                @if(Settings::get('character_title_display'))
+                    <th>Title</th>
+                @endif
+>>>>>>> 65cfc423bc4d79dd495f1e58c50a94f243fcff48
                 <th>Created</th>
             </tr>
         </thead>
@@ -244,6 +267,9 @@
                     </td>
                     <td>{!! $character->image->rarity_id ? $character->image->rarity->displayName : 'None' !!}</td>
                     <td>{!! $character->image->species_id ? $character->image->species->displayName : 'None' !!}</td>
+                    @if(Settings::get('character_title_display'))
+                        <td>{!! $character->image->hasTitle ? ($character->image->title_id ? $character->image->title->displayNameShort : (isset($character->image->title_data['short']) ? nl2br(htmlentities($character->image->title_data['short'])) : nl2br(htmlentities($character->image->title_data['full'])))) : 'None' !!}</td>
+                    @endif
                     <td>{!! format_date($character->created_at) !!}</td>
                 </tr>
             @endforeach

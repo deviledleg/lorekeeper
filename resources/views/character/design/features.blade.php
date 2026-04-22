@@ -58,6 +58,30 @@
             @endif
         </div>
 
+        @if($request->character->is_myo_slot && $request->character->image->title_id)
+                <div class="alert alert-secondary">{!! $request->character->image->title->displayName !!}</div>
+        @else
+            <div class="row no-gutters">
+                <div class="col-md-6 pr-2">
+                    <div class="form-group">
+                        {!! Form::label('Character Title') !!}
+                        {!! Form::select('title_id', $titles, $request->title_id ?? (isset($request->title_data) ? 'custom' : ($request->character->image->title_data ? 'custom' : null)), ['class' => 'form-control', 'id' => 'charTitle']) !!}
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group" id="titleOptions">
+                        {!! Form::label('Extra Info/Custom Title (Optional)') !!} {!! add_help('If \'custom title\' is selected, this will be displayed as the title. If a preexisting title is selected, it will be displayed in addition to it.'.(Settings::get('character_title_display') ? ' The short version is only used in the case of a custom title.' : '')) !!}
+                        <div class="d-flex">
+                            {!! Form::text('title_data[full]', isset($request->title_data['full']) ? $request->title_data['full'] : (isset($request->character->image->title_data['full']) ? $request->character->image->title_data['full']: null), ['class' => 'form-control mr-2', 'placeholder' => 'Full Title']) !!}
+                            @if(Settings::get('character_title_display'))
+                                {!! Form::text('title_data[short]', isset($request->title_data['short']) ? $request->title_data['short'] : (isset($request->character->image->title_data['short']) ? $request->character->image->title_data['short']: null), ['class' => 'form-control mr-2', 'placeholder' => 'Short Title (Optional)']) !!}
+                            @endif
+                        </div>
+                    </div>
+                </div>
+            </div>
+        @endif
+
         <div class="form-group">
             {!! Form::label('Traits') !!}
             <div><a href="#" class="btn btn-primary mb-2" id="add-feature">Add Trait</a></div>
@@ -141,6 +165,7 @@
                 <div class="col-md-10 col-8">{!! $request->rarity ? $request->rarity->displayName : 'None Selected' !!}</div>
             </div>
         </div>
+<<<<<<< HEAD
         <h5>Traits</h5>
         <div>
             @if ($request->character && $request->character->is_myo_slot && $request->character->image->features)
@@ -162,6 +187,25 @@
                             ({{ $feature->data }})
                         @endif
                 </div>
+=======
+        @endif
+        <div class="row">
+            <div class="col-md-2 col-4"><h5>Rarity</h5></div>
+            <div class="col-md-10 col-8">{!! $request->rarity ? $request->rarity->displayName : 'None Selected' !!}</div>
+        </div>
+        @if(isset($request->title_id) || isset($request->title_data))
+            <div class="row">
+                <div class="col-md-2 col-4"><h5>Title</h5></div>
+                <div class="col-md-10 col-8">{!! $request->title_id ? $request->title->displayNamePartial.(isset($request->title_data) ? ' ('.nl2br(htmlentities($request->title_data['full'])).')' : null) : (nl2br(htmlentities($request->title_data['full']))) !!}</div>
+            </div>
+        @endif
+    </div>
+    <h5>Traits</h5>
+    <div>
+        @if($request->character && $request->character->is_myo_slot && $request->character->image->features)
+            @foreach($request->character->image->features as $feature)
+                <div>@if($feature->feature->feature_category_id) <strong>{!! $feature->feature->category->displayName !!}:</strong> @endif {!! $feature->feature->displayName !!} @if($feature->data) ({{ $feature->data }}) @endif <span class="text-danger">*Required</span></div>
+>>>>>>> 65cfc423bc4d79dd495f1e58c50a94f243fcff48
             @endforeach
         </div>
     @endif
@@ -171,6 +215,7 @@
 @section('scripts')
     @include('widgets._image_upload_js')
 
+<<<<<<< HEAD
     <script>
         $("#species").change(function() {
             var species = $('#species').val();
@@ -184,6 +229,37 @@
             }).fail(function(jqXHR, textStatus, errorThrown) {
                 alert("AJAX call failed: " + textStatus + ", " + errorThrown);
             });
+=======
+<script>
+    $(document).ready(function() {
+        var $title = $('#charTitle');
+        var $titleOptions = $('#titleOptions');
+
+        var titleEntry = $title.val() != 0;
+
+        updateTitleEntry(titleEntry);
+
+        $title.on('change', function(e) {
+            var titleEntry = $title.val() != 0;
+            updateTitleEntry(titleEntry);
+        });
+
+        function updateTitleEntry($show) {
+            if($show) $titleOptions.removeClass('hide');
+            else $titleOptions.addClass('hide');
+        }
+    });
+
+  $( "#species" ).change(function() {
+    var species = $('#species').val();
+    var id = '<?php echo($request->id); ?>';
+    $.ajax({
+      type: "GET", url: "{{ url('designs/traits/subtype') }}?species="+species+"&id="+id, dataType: "text"
+    }).done(function (res) { $("#subtypes").html(res); }).fail(function (jqXHR, textStatus, errorThrown) { alert("AJAX call failed: " + textStatus + ", " + errorThrown); });
+
+  });
+</script>
+>>>>>>> 65cfc423bc4d79dd495f1e58c50a94f243fcff48
 
         });
     </script>

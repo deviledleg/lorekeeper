@@ -8,6 +8,7 @@
         <div class="sidebar-item"><a href="{{ url('world/trait-categories') }}" class="{{ set_active('world/trait-categories*') }}">Trait Categories</a></div>
         <div class="sidebar-item"><a href="{{ url('world/traits') }}" class="{{ set_active('world/traits*') }}">All Traits</a></div>
         <div class="sidebar-item"><a href="{{ url('world/character-categories') }}" class="{{ set_active('world/character-categories*') }}">Character Categories</a></div>
+        <div class="sidebar-item"><a href="{{ url('world/character-titles') }}" class="{{ set_active('world/character-titles*') }}">Character Titles</a></div>
     </li>
     <li class="sidebar-section">
         <div class="sidebar-section-header">Items</div>
@@ -16,6 +17,7 @@
         <div class="sidebar-item"><a href="{{ url('world/currencies') }}" class="{{ set_active('world/currencies*') }}">Currencies</a></div>
     </li>
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
     <li class="sidebar-section">
         <div class="sidebar-section-header">{{ ucfirst(__('awards.awards')) }}</div>
@@ -23,4 +25,6 @@
         <div class="sidebar-item"><a href="{{ url('world/'. __('awards.awards')) }}" class="{{ set_active('world/'. __('awards.awards') .'*') }}">All {{ ucfirst(__('awards.awards')) }} </a></div>
     </li>
 >>>>>>> 4ce3c4c70745c5449056cb191692917ca9946c3f
+=======
+>>>>>>> 65cfc423bc4d79dd495f1e58c50a94f243fcff48
 </ul>

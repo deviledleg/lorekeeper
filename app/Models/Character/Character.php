@@ -2,13 +2,26 @@
 
 namespace App\Models\Character;
 
-use App\Facades\Notifications;
+use Config;
+use DB;
+use Settings;
+use Carbon\Carbon;
+use Notifications;
+use App\Models\Model;
+
+use App\Models\User\User;
+use App\Models\User\UserCharacterLog;
+
+use App\Models\Character\CharacterCategory;
+use App\Models\Character\CharacterTransfer;
+use App\Models\Character\CharacterBookmark;
+
+use App\Models\Character\CharacterCurrency;
 use App\Models\Currency\Currency;
 use App\Models\Currency\CurrencyLog;
 use App\Models\Gallery\GalleryCharacter;
 use App\Models\Item\Item;
 use App\Models\Item\ItemLog;
-use App\Models\Model;
 use App\Models\Rarity;
 use App\Models\Award\Award;
 use App\Models\Award\AwardLog;
@@ -16,9 +29,6 @@ use App\Models\Award\AwardLog;
 use App\Models\Submission\Submission;
 use App\Models\Submission\SubmissionCharacter;
 use App\Models\Trade;
-use App\Models\User\User;
-use App\Models\User\UserCharacterLog;
-use Carbon\Carbon;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Character extends Model {
